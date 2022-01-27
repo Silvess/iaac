@@ -1,15 +1,13 @@
 resource "yandex_lb_target_group" "wp_tg" {
   name      = "wp-target-group"
 
-  target {
-    subnet_id = yandex_vpc_subnet.wp-subnet-a.id
-    address   = yandex_compute_instance.wp-app-1.network_interface.0.ip_address
-  }
-
-  target {
-    subnet_id = yandex_vpc_subnet.wp-subnet-b.id
-    address   = yandex_compute_instance.wp-app-2.network_interface.0.ip_address
-  }
+   dynamic "target" {
+    for_each = yandex_compute_instance.wp-app[*].network_interface.0
+    content {
+      subnet_id = target.value["subnet_id"]
+      address   = target.value["ip_address"]
+    }
+}
 }
 
 resource "yandex_lb_network_load_balancer" "wp_lb" {

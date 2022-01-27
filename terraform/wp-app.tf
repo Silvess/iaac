@@ -1,6 +1,7 @@
-resource "yandex_compute_instance" "wp-app-1" {
-  name = "wp-app-1"
-  zone = "ru-central1-a"
+resource "yandex_compute_instance" "wp-app" {
+  count = var.instance_count
+  name = "wp-app-group-${count.index + 1}"
+  zone = element(var.zones,count.index)
 
   resources {
     cores  = 2
@@ -14,34 +15,8 @@ resource "yandex_compute_instance" "wp-app-1" {
   }
 
   network_interface {
-    # Указан id подсети default-ru-central1-a
-    subnet_id = yandex_vpc_subnet.wp-subnet-a.id
-    nat       = true
-  }
-
-  metadata = {
-    ssh-keys = "ubuntu:${file("~/.ssh/yc.pub")}"
-  }
-}
-
-resource "yandex_compute_instance" "wp-app-2" {
-  name = "wp-app-2"
-  zone = "ru-central1-b"
-
-  resources {
-    cores  = 2
-    memory = 2
-  }
-
-  boot_disk {
-    initialize_params {
-      image_id = "fd80viupr3qjr5g6g9du"
-    }
-  }
-
-  network_interface {
-    # Указан id подсети default-ru-central1-b
-    subnet_id = yandex_vpc_subnet.wp-subnet-b.id
+    #subnet_id = yandex_vpc_subnet.wp-subnet[0].id
+    subnet_id = element(yandex_vpc_subnet.wp-subnet[*].id,count.index)
     nat       = true
   }
 
