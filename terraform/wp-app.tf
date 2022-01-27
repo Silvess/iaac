@@ -1,6 +1,6 @@
 resource "yandex_compute_instance" "wp-app" {
   count = var.instance_count
-  name = "wp-app-group-${count.index + 1}"
+  name = "wp-app-${count.index + 1}"
   zone = element(var.zones,count.index)
 
   resources {
