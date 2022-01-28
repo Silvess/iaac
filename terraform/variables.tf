@@ -8,11 +8,6 @@ variable "yc_folder" {
   description = "Yandex Cloud folder"
 }
 
-#variable "yc_token" {
-#  type = string
-#  description = "Yandex Cloud folder"
-#}
-
 variable "yc_service_account_key_file" {
   type = string
   description = "Path to Service account key file"
