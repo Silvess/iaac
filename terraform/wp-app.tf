@@ -15,7 +15,6 @@ resource "yandex_compute_instance" "wp-app" {
   }
 
   network_interface {
-    #subnet_id = yandex_vpc_subnet.wp-subnet[0].id
     subnet_id = element(yandex_vpc_subnet.wp-subnet[*].id,count.index)
     nat       = true
   }
