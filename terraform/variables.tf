@@ -8,15 +8,15 @@ variable "yc_folder" {
   description = "Yandex Cloud folder"
 }
 
-variable "yc_token" {
-  type = string
-  description = "Yandex Cloud folder"
-}
-
-#variable "yc_service_account_key_file" {
+#variable "yc_token" {
 #  type = string
-#  description = "Path to Service account key file"
+#  description = "Yandex Cloud folder"
 #}
+
+variable "yc_service_account_key_file" {
+  type = string
+  description = "Path to Service account key file"
+}
 
 variable "db_password" {
   description = "MySQL user pasword"
