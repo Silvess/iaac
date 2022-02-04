@@ -10,5 +10,5 @@ output "database_host_fqdn" {
 
 output "vm_linux_public_ip_address" {
   description = "Virtual machine IP"
-  value = yandex_compute_instance.wp-app-1.network_interface[0].nat_ip_address
+  value = yandex_compute_instance.wp-app[0].network_interface[0].nat_ip_address
 }
