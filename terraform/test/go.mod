@@ -3,6 +3,7 @@ module test
 go 1.17
 
 require (
+	github.com/go-sql-driver/mysql v1.4.1
 	github.com/gruntwork-io/terratest v0.40.0
 	golang.org/x/crypto v0.0.0-20210513164829-c07d793c2f9a
 )
@@ -20,7 +21,6 @@ require (
 	github.com/docker/spdystream v0.0.0-20181023171402-6480d4af844c // indirect
 	github.com/go-errors/errors v1.0.2-0.20180813162953-d98b870cc4e0 // indirect
 	github.com/go-logr/logr v0.2.0 // indirect
-	github.com/go-sql-driver/mysql v1.4.1 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/golang/groupcache v0.0.0-20200121045136-8c9f03a8e57e // indirect
 	github.com/golang/protobuf v1.5.2 // indirect

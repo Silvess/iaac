@@ -9,10 +9,15 @@ import (
 	"github.com/gruntwork-io/terratest/modules/terraform"
 	test_structure "github.com/gruntwork-io/terratest/modules/test-structure"
 	"golang.org/x/crypto/ssh"
+
+	"database/sql"
+	_ "github.com/go-sql-driver/mysql"
 )
 
 var folder = flag.String("folder", "", "Folder ID in Yandex.Cloud")
 var sshKeyPath = flag.String("ssh-key-pass", "", "Private ssh key for access to virtual machines")
+
+// var dbPass = flag.String("dbpass", "", "Password to the creates database")
 
 func TestEndToEndDeploymentScenario(t *testing.T) {
 	fixtureFolder := "../"
@@ -82,6 +87,19 @@ func TestEndToEndDeploymentScenario(t *testing.T) {
 		if err != nil {
 			t.Fatalf("Cannot ping 8.8.8.8: %v", err)
 		}
+
+		dbHostname := terraform.Output(t, terraformOptions, "database_host_fqdn")
+		dbName := terraform.Output(t, terraformOptions, "database_name")
+		dbUser := terraform.Output(t, terraformOptions, "database_user")
+		dbPass := terraform.Output(t, terraformOptions, "database_pass")
+
+		//db, err := sql.Open("mysql", "username:password@tcp(127.0.0.1:3306)/test")
+		db, err := sql.Open("mysql", dbUser+":"+dbPass+"@tcp("+dbHostname+":3306)/"+dbName)
+		if err != nil {
+			t.Fatalf("Cannot connect to database: %v", err)
+		}
+
+		defer db.Close()
 	})
 
 	test_structure.RunTestStage(t, "teardown", func() {
