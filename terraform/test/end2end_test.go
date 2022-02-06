@@ -17,8 +17,6 @@ import (
 var folder = flag.String("folder", "", "Folder ID in Yandex.Cloud")
 var sshKeyPath = flag.String("ssh-key-pass", "", "Private ssh key for access to virtual machines")
 
-// var dbPass = flag.String("dbpass", "", "Password to the creates database")
-
 func TestEndToEndDeploymentScenario(t *testing.T) {
 	fixtureFolder := "../"
 
@@ -88,6 +86,7 @@ func TestEndToEndDeploymentScenario(t *testing.T) {
 			t.Fatalf("Cannot ping 8.8.8.8: %v", err)
 		}
 
+		// test db connection
 		dbHostname := terraform.Output(t, terraformOptions, "database_host_fqdn")
 		dbName := terraform.Output(t, terraformOptions, "database_name")
 		dbUser := terraform.Output(t, terraformOptions, "database_user")
