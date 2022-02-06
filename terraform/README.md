@@ -80,9 +80,9 @@ import (
 		defer db.Close()
 	})
 ```
-`dbHostname`, `dbName`, `dbUser`, `dbPass` - переменные, значения которых получаем из output переменных Terraform. 
+`dbHostname`, `dbName`, `dbUser`, `dbPass` - переменные, значения которых получаем из **output** переменных Terraform. 
 
-`db, err := sql.Open()' - вызов функции установки соединения с БД.
+`db, err := sql.Open()` - вызов функции установки соединения с БД.
 
 По завершению, не забываем закрыть соединение к БД: `defer db.Close()`.
 
