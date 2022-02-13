@@ -37,6 +37,7 @@ resource "yandex_mdb_mysql_cluster" "wp_mysql" {
     subnet_id = yandex_vpc_subnet.wp-subnet[1].id
     assign_public_ip = true
   }
+  
   host {
     zone      = "ru-central1-c"
     subnet_id = yandex_vpc_subnet.wp-subnet[2].id
