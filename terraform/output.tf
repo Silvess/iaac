@@ -33,3 +33,8 @@ output "database_pass" {
   sensitive = true
   value = local.dbpassword
 }
+
+output "dbcluster_fqdn" {
+  description = "FQDN of the database cluster master"
+  value = local.cluster_master_fqdn
+}

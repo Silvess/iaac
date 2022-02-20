@@ -3,6 +3,8 @@ locals {
   dbpassword = tolist(yandex_mdb_mysql_cluster.wp_mysql.user.*.password)[0]
   dbhosts = yandex_mdb_mysql_cluster.wp_mysql.host.*.fqdn
   dbname = tolist(yandex_mdb_mysql_cluster.wp_mysql.database.*.name)[0]
+  cluster_id = yandex_mdb_mysql_cluster.wp_mysql.id
+  cluster_master_fqdn = "c-${local.cluster_id}.rw.mdb.yandexcloud.net"
 }
 
 resource "yandex_mdb_mysql_cluster" "wp_mysql" {
@@ -42,5 +44,9 @@ resource "yandex_mdb_mysql_cluster" "wp_mysql" {
     zone      = "ru-central1-c"
     subnet_id = yandex_vpc_subnet.wp-subnet[2].id
     assign_public_ip = true
+  }
+
+   labels = { 
+    ansible-group = "wp-db"
   }
 }

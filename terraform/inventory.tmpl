@@ -1,0 +1,4 @@
+[wp-app]
+%{ for index, group in ansible_group_wp-app ~}
+${ hostname_wp-app[index]} ansible_host=${ hostaddr_wp-app[index]}
+%{ endfor ~}

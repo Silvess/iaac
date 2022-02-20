@@ -22,4 +22,8 @@ resource "yandex_compute_instance" "wp-app" {
   metadata = {
     ssh-keys = "ubuntu:${file("~/.ssh/yc.pub")}"
   }
+
+ labels = { 
+    ansible-group = "wp-app"
+  }
 }
