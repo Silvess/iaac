@@ -71,3 +71,5 @@ resource "local_file" "ansible_groupvars_wp-app" {
   filename = "../ansible/environments/prod/group_vars/wp-app"
 }
 ```
+Таким образом, получим автоматическое создание и наполнение *inventory* и *group_vars/wp-app* средствами terraform.
+
